@@ -42,7 +42,7 @@ cM(Cnegro,Cazul,Camarillo,Crojo,Cblanco,Total):- Total is Cnegro + Cazul + Camar
 
 % Espacio de definicion Bolsa:
 % Bolsa(Negro,Azul,Amarillo,Rojo,Blanco,Total) inicialmente se cuenta con esta cantidaden la bolsa.
-Bolsa(20,20,20,20,20,100).
+bolsa(20,20,20,20,20,100).
 
 % Espacio de definicion de los colores:
 colores([negro,azul,amarillo,rojo,blanco]).
