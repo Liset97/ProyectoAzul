@@ -1,4 +1,4 @@
-:- [bd].
+:- [bd,funciones].
 
 % Primero se escoge al jugador inicial ademas se llenan las facttorias
 
@@ -17,8 +17,28 @@ llenaTodasFact(N):- N > 0, llenaFact(N,T1,T2,T3,T4), N1 is N-1, llenaTodasFact(N
 %                                     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%           Maneras de elegir los azulejos:
+
+% Tomar de la Factoria:
+buscaFact(R,F):- factoria(A,R,_,_,_), F is A, !.
+buscaFact(R,F):- factoria(A,_,R,_,_), F is A, !.
+buscaFact(R,F):- factoria(A,_,_,R,_), F is A, !.
+buscaFact(R,F):- factoria(A,_,_,_,R), F is A, !.
+
+% metodo para seleccionar un color de la factoria si es la opcion escogida
+cogerFF(R,C,F):- cogeColor(R), buscaFact(R,F), factoria(F,X,Y,Z,W),countList(R,[X,Y,Z,W],A),C is A.
+limpiar(F):- retract(factoria(F,_,_,_,_)), assert(factoria(F,none,none,none,none)).
+
+% Para pasar las fichas restantes de una factoria al cantro de Mesa:
 
 
+% Meter fichas para el centro de Mesa:
+meteCMesa(R,C):-cM(R,A), C1 is C+A, retract(cM(R,A)),assert(cM(R,C1)).
+
+
+% Tomar del Centro de la mesa
+% metodo para seleccionar un color del centro de mesa
+cogerFC(R,C):- cogeColor(R), cM(R,C1), C is C1, retract(cM(R,C1)), assert(cM(R,0)).
 
 
 
