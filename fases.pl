@@ -45,7 +45,10 @@ meteCMesa(R,C):-cM(R,A), C1 is C+A, retract(cM(R,A)),assert(cM(R,C1)).
 cogerFC(R,C):- cogeColor(R), cM(R,C1), C is C1, retract(cM(R,C1)), assert(cM(R,0)).
 
 % Ponerle las fichas elegidas al jugador:
-
+% ponerP(J,R,C) donde J es el indice del jugador, R es el codigo del color y C es la cantidad a ubicar.
+ponerP(J,R,0):-true.
+ponerP(J,R,C):-patron(J,linea(X,Y),A,B,C,D),X=0,sec1(J,R), actualizarP1(J,1,R), C1 is C-1, ponerP(J,R,C1).
+ponerP(J,R,C):-
 
 
 

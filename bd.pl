@@ -70,11 +70,105 @@ bolsa(rojo,20).
 bolsa(blanco,20).
 
 % Espacio de definicion de los colores:
-colores(,negro).
+colores(1,negro).
 colores(2,azul).
 colores(3,amarillo).
 colores(4,rojo).
 colores(5,blanco).
+
+
+% Espacio para los cambios en patron y pared.
+% N es el jugador, X el numero de fichas totales a en la ficha, 
+actualizarP1(N,X,Y):- retract(patron(N,_,A,B,C,D)),assert(patron(N,linea(X,Y),A,B,C,D)).
+actualizarP2(N,X,Y):- retract(patron(N,A,_,B,C,D)),assert(patron(N,A,linea(X,Y),B,C,D)).
+actualizarP3(N,X,Y):- retract(patron(N,A,B,_,C,D)),assert(patron(N,A,B,linea(X,Y),C,D)).
+actualizarP4(N,X,Y):- retract(patron(N,A,B,C,_,D)),assert(patron(N,A,B,C,linea(X,Y),D)).
+actualizarP5(N,X,Y):- retract(patron(N,A,B,C,D,_)),assert(patron(N,A,B,C,D,linea(X,Y))).
+
+
+
+% Buscar en una fila 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   COMO DEBE QUEDAR LA MATRIZ EN PATRONES:   %
+%                                             %
+%           [1,2,3,4,5]                       %
+%           [5,1,2,3,4]                       %
+%           [4,5,1,2,3]                       %
+%           [3,4,5,1,2]                       %
+%           [2,3,4,5,1]                       %
+%                                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Verificacion por fila de  que puede estar:
+% secX(J,CC).
+sec1(J,1):- pared(J,f(X,Y1,Y2,Y3,Y4),A,B,C,D), X=0.
+sec1(J,2):- pared(J,f(Y1,X,Y2,Y3,Y4),A,B,C,D), X=0.
+sec1(J,3):- pared(J,f(Y1,Y2,X,Y3,Y4),A,B,C,D), X=0.
+sec1(J,4):- pared(J,f(Y1,Y2,Y3,X,Y4),A,B,C,D), X=0.
+sec1(J,5):- pared(J,f(Y1,Y2,Y3,Y4,X),A,B,C,D), X=0.
+
+sec2(J,1):- pared(J,A,f(Y1,X,Y2,Y3,Y4),B,C,D), X=0.
+sec2(J,2):- pared(J,A,f(Y1,Y2,X,Y3,Y4),B,C,D), X=0.
+sec2(J,3):- pared(J,A,f(Y1,Y2,Y3,X,Y4),B,C,D), X=0.
+sec2(J,4):- pared(J,A,f(Y1,Y2,Y3,Y4,X),B,C,D), X=0.
+sec2(J,5):- pared(J,A,f(X,Y1,Y2,Y3,Y4),B,C,D), X=0.
+
+sec3(J,1):- pared(J,A,B,f(Y1,Y2,X,Y3,Y4),C,D), X=0.
+sec3(J,2):- pared(J,A,B,f(Y1,Y2,Y3,X,Y4),C,D), X=0.
+sec3(J,3):- pared(J,A,B,f(Y1,Y2,Y3,Y4,X),C,D), X=0.
+sec3(J,4):- pared(J,A,B,f(X,Y1,Y2,Y3,Y4),C,D), X=0.
+sec3(J,5):- pared(J,A,B,f(Y1,X,Y2,Y3,Y4),C,D), X=0.
+
+sec4(J,1):- pared(J,A,B,C,f(Y1,Y2,Y3,X,Y4),D), X=0.
+sec4(J,2):- pared(J,A,B,C,f(Y1,Y2,Y3,Y4,X),D), X=0.
+sec4(J,3):- pared(J,A,B,C,f(X,Y1,Y2,Y3,Y4),D), X=0.
+sec4(J,4):- pared(J,A,B,C,f(Y1,X,Y2,Y3,Y4),D), X=0.
+sec4(J,5):- pared(J,A,B,C,f(Y1,Y2,X,Y3,Y4),D), X=0.
+
+sec5(J,1):- pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,X)), X=0.
+sec5(J,2):- pared(J,A,B,C,D,f(X,Y1,Y2,Y3,Y4)), X=0.
+sec5(J,3):- pared(J,A,B,C,D,f(Y1,X,Y2,Y3,Y4)), X=0.
+sec5(J,4):- pared(J,A,B,C,D,f(Y1,Y2,X,Y3,Y4)), X=0.
+sec5(J,5):- pared(J,A,B,C,D,f(Y1,Y2,Y3,X,Y4)), X=0.
+
+
+cambSec1(J,1):-retract(pared(J,f(_,Y1,Y2,Y3,Y4),A,B,C,D)),assert(pared(J,f(1,Y1,Y2,Y3,Y4),A,B,C,D)).
+cambSec1(J,2):-retract(pared(J,f(Y1,X,Y2,Y3,Y4),A,B,C,D)),assert(pared(J,f(Y1,2,Y2,Y3,Y4),A,B,C,D)).
+cambSec1(J,3):-retract(pared(J,f(Y1,Y2,X,Y3,Y4),A,B,C,D)),assert(pared(J,f(Y1,Y2,3,Y3,Y4),A,B,C,D)).
+cambSec1(J,4):-retract(pared(J,f(Y1,Y2,Y3,X,Y4),A,B,C,D)),assert(pared(J,f(Y1,Y2,Y3,4,Y4),A,B,C,D)).
+cambSec1(J,5):-retract(pared(J,f(Y1,Y2,Y3,Y4,X),A,B,C,D)),assert(pared(J,f(Y1,Y2,Y3,Y4,5),A,B,C,D)).
+
+cambSec2(J,1):-retract(pared(J,A,f(Y1,X,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(Y1,1,Y2,Y3,Y4),B,C,D)).
+cambSec2(J,2):-retract(pared(J,A,f(Y1,Y2,X,Y3,Y4),B,C,D)),assert(pared(J,A,f(Y1,Y2,2,Y3,Y4),B,C,D)).
+cambSec2(J,3):-retract(pared(J,A,f(Y1,Y2,Y3,X,Y4),B,C,D)),assert(pared(J,A,f(Y1,Y2,Y3,3,Y4),B,C,D)).
+cambSec2(J,4):-retract(pared(J,A,f(Y1,Y2,Y3,Y4,X),B,C,D)),assert(pared(J,A,f(Y1,Y2,Y3,Y4,4),B,C,D)).
+cambSec2(J,5):-retract(pared(J,A,f(X,Y1,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(1,Y1,Y2,Y3,Y4),B,C,D)).
+
+cambSec3(J,1):-retract(pared(J,A,B,f(Y1,Y2,X,Y3,Y4),C,D)),assert(pared(J,A,B,f(Y1,Y2,1,Y3,Y4),C,D)).
+cambSec3(J,2):-retract(pared(J,A,B,f(Y1,Y2,Y3,X,Y4),C,D)),assert(pared(J,A,B,f(Y1,Y2,Y3,2,Y4),C,D)).
+cambSec3(J,3):-retract(pared(J,A,B,f(Y1,Y2,Y3,Y4,X),C,D)),assert(pared(J,A,B,f(Y1,Y2,Y3,Y4,3),C,D)).
+cambSec3(J,4):-retract(pared(J,A,B,f(X,Y1,Y2,Y3,Y4),C,D)),assert(pared(J,A,B,f(4,Y1,Y2,Y3,Y4),C,D)).
+cambSec3(J,5):-retract(pared(J,A,B,f(Y1,X,Y2,Y3,Y4),C,D)),assert(pared(J,A,B,f(Y1,5,Y2,Y3,Y4),C,D)).
+
+cambSec4(J,1):-retract(pared(J,A,B,C,f(Y1,Y2,Y3,X,Y4),D)),assert(pared(J,A,B,C,f(Y1,Y2,Y3,1,Y4),D)).
+cambSec4(J,2):-retract(pared(J,A,B,C,f(Y1,Y2,Y3,Y4,X),D)),assert(pared(J,A,B,C,f(Y1,Y2,Y3,Y4,2),D)).
+cambSec4(J,3):-retract(pared(J,A,B,C,f(X,Y1,Y2,Y3,Y4),D)),assert(pared(J,A,B,C,f(3,Y1,Y2,Y3,Y4),D)).
+cambSec4(J,4):-retract(pared(J,A,B,C,f(Y1,X,Y2,Y3,Y4),D)),assert(pared(J,A,B,C,f(Y1,4,Y2,Y3,Y4),D)).
+cambSec4(J,5):-retract(pared(J,A,B,C,f(Y1,Y2,X,Y3,Y4),D)),assert(pared(J,A,B,C,f(Y1,Y2,5,Y3,Y4),D)).
+
+cambSec5(J,1):-retract(pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,X))),assert(pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,1))).
+cambSec5(J,2):-retract(pared(J,A,B,C,D,f(X,Y1,Y2,Y3,Y4))),assert(pared(J,A,B,C,D,f(2,Y1,Y2,Y3,Y4))).
+cambSec5(J,3):-retract(pared(J,A,B,C,D,f(Y1,X,Y2,Y3,Y4))),assert(pared(J,A,B,C,D,f(Y1,3,Y2,Y3,Y4))).
+cambSec5(J,4):-retract(pared(J,A,B,C,D,f(Y1,Y2,X,Y3,Y4))),assert(pared(J,A,B,C,D,f(Y1,Y2,4,Y3,Y4))).
+cambSec5(J,5):-retract(pared(J,A,B,C,D,f(Y1,Y2,Y3,X,Y4))),assert(pared(J,A,B,C,D,f(Y1,Y2,Y3,5,Y4))).
+
+
+
+
+
+
+
 
 
 
