@@ -79,7 +79,7 @@ colores(5,blanco).
 
 % Espacio para los cambios en patron y pared.
 % N es el jugador, X el numero de fichas totales a en la ficha, 
-actualizarP1(N,X,Y):- retract(patron(N,_,A,B,C,D)),assert(patron(N,linea(X,Y),A,B,C,D)).
+actualizarP1(N,X,Y):- retract(patron(N,_,A,B,C,D)),assert(patron(N,linea(X,Y),A,B,C,D)),write("Hola").
 actualizarP2(N,X,Y):- retract(patron(N,A,_,B,C,D)),assert(patron(N,A,linea(X,Y),B,C,D)).
 actualizarP3(N,X,Y):- retract(patron(N,A,B,_,C,D)),assert(patron(N,A,B,linea(X,Y),C,D)).
 actualizarP4(N,X,Y):- retract(patron(N,A,B,C,_,D)),assert(patron(N,A,B,C,linea(X,Y),D)).

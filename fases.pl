@@ -47,9 +47,12 @@ cogerFC(R,C):- cogeColor(R), cM(R,C1), C is C1, retract(cM(R,C1)), assert(cM(R,0
 % Ponerle las fichas elegidas al jugador:
 % ponerP(J,R,C) donde J es el indice del jugador, R es el codigo del color y C es la cantidad a ubicar.
 ponerP(J,R,0):-true.
-ponerP(J,R,C):-patron(J,linea(X,Y),A,B,C,D),X=0,sec1(J,R), actualizarP1(J,1,R), C1 is C-1, ponerP(J,R,C1).
-ponerP(J,R,C):-
-
+ponerP(J,R,C):-patron(J,linea(X,Y),A,B,V,D),X=0,sec1(J,R), actualizarP1(J,1,R), C1 is C-1, ponerP(J,R,C1).
+ponerP(J,R,C):-patron(J,A,linea(X,Y),B,V,D),X<2,sec2(J,R), (Y=R; Y=none), P is 2-X, mixM(P,C,M), C1 is C-M, actualizarP2(J,M,R),ponerP(J,R,C1).
+ponerP(J,R,C):-patron(J,A,B,linea(X,Y),V,D),X<3,sec3(J,R), (Y=R; Y=none), P is 3-X, mixM(P,C,M), C1 is C-M, actualizarP3(J,M,R),ponerP(J,R,C1).
+ponerP(J,R,C):-patron(J,A,B,V,linea(X,Y),D),X<4,sec4(J,R), (Y=R; Y=none), P is 4-X, mixM(P,C,M), C1 is C-M, actualizarP4(J,M,R),ponerP(J,R,C1).
+ponerP(J,R,C):-patron(J,A,B,V,D,linea(X,Y)),X<5,sec5(J,R), (Y=R; Y=none), P is 5-X, mixM(P,C,M), C1 is C-M, actualizarP5(J,M,R),ponerP(J,R,C1).
+ponerP(J,R,C):-jugador(J,P,S),S1 is S+C,retract(jugador(J,P,S)),assert(jugador(J,P,S1)).
 
 
 

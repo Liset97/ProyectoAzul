@@ -17,3 +17,6 @@ count1(X,Y,0):- not(X=Y).
 
 countList(_,[],0):-!.
 countList(X,[Y|L],C):-countList(X,L,C1),count1(X,Y,S), C is C1+S.
+
+mixM(X,Y,X):- X =< Y.
+mixM(X,Y,Y):- Y < X.
