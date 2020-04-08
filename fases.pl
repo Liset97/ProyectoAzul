@@ -4,7 +4,7 @@
 
 % Estos metodos son para escoger color, sacar de3 la bolsa y llenar las factorias.
 
-cogeColor(R):- random(0,5,U), colores(U,R).
+cogeColor(R):- random(1,6,U), colores(U,R).
 
 cogeBolsa(R):- cogeColor(R), bolsa(R,X1), X1 > 0, X is X1-1, retract(bolsa(R,X1)), assert(bolsa(R,X)).
 
@@ -44,6 +44,7 @@ meteCMesa(R,C):-cM(R,A), C1 is C+A, retract(cM(R,A)),assert(cM(R,C1)).
 % metodo para seleccionar un color del centro de mesa
 cogerFC(R,C):- cogeColor(R), cM(R,C1), C is C1, retract(cM(R,C1)), assert(cM(R,0)).
 
+% Ponerle las fichas elegidas al jugador:
 
 
 
