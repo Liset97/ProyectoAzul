@@ -30,7 +30,11 @@ cogerFF(R,C,F):- cogeColor(R), buscaFact(R,F), factoria(F,X,Y,Z,W),countList(R,[
 limpiar(F):- retract(factoria(F,_,_,_,_)), assert(factoria(F,none,none,none,none)).
 
 % Para pasar las fichas restantes de una factoria al cantro de Mesa:
+pasarCM(R,[]):- true.
+pasarCM(R,[X|Y]):- R = X, pasarCM(R,Y).
+pasarCM(R,[X|Y]):- not(R = X), meteCMesa(X,1),pasarCM(R,Y).
 
+pasarFCM(R,F):- factoria(F,X,Y,Z,W), pasarCM(R,[X,Y,Z,W]),limpiar(F).
 
 % Meter fichas para el centro de Mesa:
 meteCMesa(R,C):-cM(R,A), C1 is C+A, retract(cM(R,A)),assert(cM(R,C1)).
