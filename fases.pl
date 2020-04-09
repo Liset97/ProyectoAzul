@@ -79,6 +79,8 @@ juega(J):- not(cMVacias()),cogerFC(R,C),colores(H,R),ponerP(J,H,C).
 
 meterTapa(R,C):-tapa(R,X), A is X+C, retract(tapa(R,X)),assert(tapa(R,A)).
 
+meterTB([]):-!.
+meterTB([X|Y]):- tapa(X,C),retract(bolsa(X,B)),assert(bolsa(X,U)),retract(tapa(X,T)),assert(tapa(X,0)),meterTB(Y).
 
 % moverPP(J) es para mover la ficha correspondiente de cada patron para la pared 
 moverPP(J,1):-patron(J,linea(X,Y),A,B,C,D), X=1,colores(U,Y),sec1(J,U),cambSec1(J,U),reiniciarP1(J).  % agregarle sumar puntos
