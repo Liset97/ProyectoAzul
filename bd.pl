@@ -94,13 +94,17 @@ cMVacias():- cM(negro,X1),cM(azul,X2),cM(amarillo,X3),cM(rojo,X4),cM(blanco,X5),
 
 % Espacio para los cambios en patron y pared.
 % N es el jugador, X el numero de fichas totales a en la ficha, 
-actualizarP1(N,X,Y):- retract(patron(N,_,A,B,C,D)),assert(patron(N,linea(X,Y),A,B,C,D)),write("Hola").
-actualizarP2(N,X,Y):- retract(patron(N,A,_,B,C,D)),assert(patron(N,A,linea(X,Y),B,C,D)).
-actualizarP3(N,X,Y):- retract(patron(N,A,B,_,C,D)),assert(patron(N,A,B,linea(X,Y),C,D)).
-actualizarP4(N,X,Y):- retract(patron(N,A,B,C,_,D)),assert(patron(N,A,B,C,linea(X,Y),D)).
-actualizarP5(N,X,Y):- retract(patron(N,A,B,C,D,_)),assert(patron(N,A,B,C,D,linea(X,Y))).
+actualizarP1(N,X,Y):- patron(N,linea(H,U),A,B,C,D),X1 is X+H,retract(patron(N,_,A,B,C,D)),assert(patron(N,linea(X1,Y),A,B,C,D)).
+actualizarP2(N,X,Y):- patron(N,A,linea(H,U),B,C,D),X1 is X+H,retract(patron(N,A,_,B,C,D)),assert(patron(N,A,linea(X1,Y),B,C,D)).
+actualizarP3(N,X,Y):- patron(N,A,B,linea(H,U),C,D),X1 is X+H,retract(patron(N,A,B,_,C,D)),assert(patron(N,A,B,linea(X1,Y),C,D)).
+actualizarP4(N,X,Y):- patron(N,A,B,C,linea(H,U),D),X1 is X+H,retract(patron(N,A,B,C,_,D)),assert(patron(N,A,B,C,linea(X1,Y),D)).
+actualizarP5(N,X,Y):- patron(N,A,B,C,D,linea(H,U)),X1 is X+H,retract(patron(N,A,B,C,D,_)),assert(patron(N,A,B,C,D,linea(X1,Y))).
 
-
+reiniciarP1(N):-retract(patron(N,_,A,B,C,D)),assert(patron(N,linea(0,none),A,B,C,D)).
+reiniciarP2(N):-retract(patron(N,A,_,B,C,D)),assert(patron(N,A,linea(0,none),B,C,D)).
+reiniciarP3(N):-retract(patron(N,A,B,_,C,D)),assert(patron(N,A,B,linea(0,none),C,D)).
+reiniciarP4(N):-retract(patron(N,A,B,C,_,D)),assert(patron(N,A,B,C,linea(0,none),D)).
+reiniciarP5(N):-retract(patron(N,A,B,C,D,_)),assert(patron(N,A,B,C,D,linea(0,none))).
 
 % Buscar en una fila 
 

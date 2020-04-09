@@ -32,7 +32,7 @@ cogerFF(R,C,F):- cogerFF(R,C,F).
 limpiar(F):- retract(factoria(F,_,_,_,_)), assert(factoria(F,none,none,none,none)).
 
 % Para pasar las fichas restantes de una factoria al cantro de Mesa:
-pasarCM(R,[]):- true.
+pasarCM(R,[]):- !.
 pasarCM(R,[X|Y]):- R = X, pasarCM(R,Y).
 pasarCM(R,[X|Y]):- not(R = X), meteCMesa(X,1),pasarCM(R,Y).
 
@@ -66,7 +66,26 @@ ambas():-factoriasVacias(9),cMVacias().
 juega(J):- not(factoriasVacias(9)),cogerFF(R,C,F),pasarFCM(R,F),colores(H,R),ponerP(J,H,C),!.
 juega(J):- not(cMVacias()),cogerFC(R,C),colores(H,R),ponerP(J,H,C).
 
+%%
+%%  Terminar cosas de la fase uno como manejar el jugador inicial
+%%
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           %
+%   SEGUNDA FASE: "Alicatado de la Pared"   %
+%                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+meterTapa(R,C):-tapa(R,X), A is X+C, retract(tapa(R,X)),assert(tapa(R,A)).
+
+
+% moverPP(J) es para mover la ficha correspondiente de cada patron para la pared 
+moverPP(J,1):-patron(J,linea(X,Y),A,B,C,D), X=1,colores(U,Y),sec1(J,U),cambSec1(J,U),reiniciarP1(J).  % agregarle sumar puntos
+moverPP(J,2):-patron(J,A,linea(X,Y),B,C,D), X=2,colores(U,Y),sec2(J,U),cambSec2(J,U),reiniciarP2(J),meterTapa(Y,1).
+moverPP(J,3):-patron(J,A,B,linea(X,Y),C,D), X=3,colores(U,Y),sec3(J,U),cambSec3(J,U),reiniciarP3(J),meterTapa(Y,2).
+moverPP(J,4):-patron(J,A,B,C,linea(X,Y),D), X=4,colores(U,Y),sec4(J,U),cambSec4(J,U),reiniciarP4(J),meterTapa(Y,3).
+moverPP(J,5):-patron(J,A,B,C,D,linea(X,Y)), X=5,colores(U,Y),sec5(J,U),cambSec5(J,U),reiniciarP5(J),meterTapa(Y,4).
 
 
 
