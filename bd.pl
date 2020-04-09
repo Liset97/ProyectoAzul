@@ -16,7 +16,7 @@ patron(4,linea(0,none),linea(0,none),linea(0,none),linea(0,none),linea(0,none)).
 
 % f(Q,W,E,R,T) representa las filas de la pared d0nde tiene una ficha x cada color como maximo.
 :-dynamic f/5. 
-f(Negro,Azul,Amarillo,Rojo,Blanco):- Negro =< 1, Azul =< 1, Amarillo =< 1, Rojo =< 1, Blanco =< 1.
+% f(Negro,Azul,Amarillo,Rojo,Blanco):- Negro =< 1, Azul =< 1, Amarillo =< 1, Rojo =< 1, Blanco =< 1.
 % Definicion de Pared:
 :- dynamic pared/6.
 % pared(I,f(X1,X2,X3,X4,X5),f(Y1,Y2,Y3,Y4,Y5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)).
@@ -75,6 +75,21 @@ colores(2,azul).
 colores(3,amarillo).
 colores(4,rojo).
 colores(5,blanco).
+
+% Espacio de definicion de la tapa:
+:- dynamic tapa/2:
+tapa(negro,0).
+tapa(azul,0).
+tapa(amarillo,0).
+tapa(rojo,0).
+tapa(blanco,0).
+
+
+factoriasVacias(0):-!.
+factoriasVacias(F):-factoria(F,X,Y,Z,W), X=none, Y=none, Z = none, W=none, N is F-1, factoriasVacias(N).
+
+
+cMVacias():- cM(negro,X1),cM(azul,X2),cM(amarillo,X3),cM(rojo,X4),cM(blanco,X5), X1=0,X2=0,X3=0,X4=0,X5=0.
 
 
 % Espacio para los cambios en patron y pared.
@@ -143,7 +158,7 @@ cambSec2(J,1):-retract(pared(J,A,f(Y1,X,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(Y1,
 cambSec2(J,2):-retract(pared(J,A,f(Y1,Y2,X,Y3,Y4),B,C,D)),assert(pared(J,A,f(Y1,Y2,2,Y3,Y4),B,C,D)).
 cambSec2(J,3):-retract(pared(J,A,f(Y1,Y2,Y3,X,Y4),B,C,D)),assert(pared(J,A,f(Y1,Y2,Y3,3,Y4),B,C,D)).
 cambSec2(J,4):-retract(pared(J,A,f(Y1,Y2,Y3,Y4,X),B,C,D)),assert(pared(J,A,f(Y1,Y2,Y3,Y4,4),B,C,D)).
-cambSec2(J,5):-retract(pared(J,A,f(X,Y1,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(1,Y1,Y2,Y3,Y4),B,C,D)).
+cambSec2(J,5):-retract(pared(J,A,f(X,Y1,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(5,Y1,Y2,Y3,Y4),B,C,D)).
 
 cambSec3(J,1):-retract(pared(J,A,B,f(Y1,Y2,X,Y3,Y4),C,D)),assert(pared(J,A,B,f(Y1,Y2,1,Y3,Y4),C,D)).
 cambSec3(J,2):-retract(pared(J,A,B,f(Y1,Y2,Y3,X,Y4),C,D)),assert(pared(J,A,B,f(Y1,Y2,Y3,2,Y4),C,D)).

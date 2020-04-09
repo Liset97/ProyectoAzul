@@ -26,7 +26,9 @@ buscaFact(R,F):- factoria(A,_,_,R,_), F is A, !.
 buscaFact(R,F):- factoria(A,_,_,_,R), F is A, !.
 
 % metodo para seleccionar un color de la factoria si es la opcion escogida
-cogerFF(R,C,F):- cogeColor(R), buscaFact(R,F), factoria(F,X,Y,Z,W),countList(R,[X,Y,Z,W],A),C is A.
+cogerFF(R,C,F):- cogeColor(R), buscaFact(R,F), factoria(F,X,Y,Z,W),countList(R,[X,Y,Z,W],C),!.
+cogerFF(R,C,F):- cogerFF(R,C,F).
+
 limpiar(F):- retract(factoria(F,_,_,_,_)), assert(factoria(F,none,none,none,none)).
 
 % Para pasar las fichas restantes de una factoria al cantro de Mesa:
@@ -39,6 +41,8 @@ pasarFCM(R,F):- factoria(F,X,Y,Z,W), pasarCM(R,[X,Y,Z,W]),limpiar(F).
 % Meter fichas para el centro de Mesa:
 meteCMesa(R,C):-cM(R,A), C1 is C+A, retract(cM(R,A)),assert(cM(R,C1)).
 
+sacarFF(R,F):-not(factoriasVacias(9)),cogerFF(R,C,F),pasarFCM(R,F).
+% sacarFF(R,F):-cogerFC(R,C), F is 10.
 
 % Tomar del Centro de la mesa
 % metodo para seleccionar un color del centro de mesa
@@ -46,7 +50,7 @@ cogerFC(R,C):- cogeColor(R), cM(R,C1), C is C1, retract(cM(R,C1)), assert(cM(R,0
 
 % Ponerle las fichas elegidas al jugador:
 % ponerP(J,R,C) donde J es el indice del jugador, R es el codigo del color y C es la cantidad a ubicar.
-ponerP(J,R,0):-true.
+ponerP(J,R,0):-!.
 ponerP(J,R,C):-patron(J,linea(X,Y),A,B,V,D),X=0,sec1(J,R), actualizarP1(J,1,R), C1 is C-1, ponerP(J,R,C1).
 ponerP(J,R,C):-patron(J,A,linea(X,Y),B,V,D),X<2,sec2(J,R), (Y=R; Y=none), P is 2-X, mixM(P,C,M), C1 is C-M, actualizarP2(J,M,R),ponerP(J,R,C1).
 ponerP(J,R,C):-patron(J,A,B,linea(X,Y),V,D),X<3,sec3(J,R), (Y=R; Y=none), P is 3-X, mixM(P,C,M), C1 is C-M, actualizarP3(J,M,R),ponerP(J,R,C1).
@@ -55,6 +59,12 @@ ponerP(J,R,C):-patron(J,A,B,V,D,linea(X,Y)),X<5,sec5(J,R), (Y=R; Y=none), P is 5
 ponerP(J,R,C):-jugador(J,P,S),S1 is S+C,retract(jugador(J,P,S)),assert(jugador(J,P,S1)).
 
 
+% Dado el jugador que metodo va a realizar:
+
+ambas():-factoriasVacias(9),cMVacias().
+
+juega(J):- not(factoriasVacias(9)),cogerFF(R,C,F),pasarFCM(R,F),colores(H,R),ponerP(J,H,C),!.
+juega(J):- not(cMVacias()),cogerFC(R,C),colores(H,R),ponerP(J,H,C).
 
 
 
