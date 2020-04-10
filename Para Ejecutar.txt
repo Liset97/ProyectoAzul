@@ -1,0 +1,3 @@
+Instrucciones para ejecutar:
+1.- Abrir en SWI-Prolog el archivo fases.pl de la carpeta actual
+2.- Ejecutar el predicado azul().
