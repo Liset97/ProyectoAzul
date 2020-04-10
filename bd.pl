@@ -152,42 +152,110 @@ sec5(J,4):- pared(J,A,B,C,D,f(Y1,Y2,X,Y3,Y4)), X=0.
 sec5(J,5):- pared(J,A,B,C,D,f(Y1,Y2,Y3,X,Y4)), X=0.
 
 
-cambSec1(J,1):-retract(pared(J,f(_,Y1,Y2,Y3,Y4),A,B,C,D)),assert(pared(J,f(1,Y1,Y2,Y3,Y4),A,B,C,D)).
-cambSec1(J,2):-retract(pared(J,f(Y1,X,Y2,Y3,Y4),A,B,C,D)),assert(pared(J,f(Y1,2,Y2,Y3,Y4),A,B,C,D)).
-cambSec1(J,3):-retract(pared(J,f(Y1,Y2,X,Y3,Y4),A,B,C,D)),assert(pared(J,f(Y1,Y2,3,Y3,Y4),A,B,C,D)).
-cambSec1(J,4):-retract(pared(J,f(Y1,Y2,Y3,X,Y4),A,B,C,D)),assert(pared(J,f(Y1,Y2,Y3,4,Y4),A,B,C,D)).
-cambSec1(J,5):-retract(pared(J,f(Y1,Y2,Y3,Y4,X),A,B,C,D)),assert(pared(J,f(Y1,Y2,Y3,Y4,5),A,B,C,D)).
+cambSec1(J,1):-retract(pared(J,f(_,Y1,Y2,Y3,Y4),A,B,C,D)),assert(pared(J,f(1,Y1,Y2,Y3,Y4),A,B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,1,X1,X2,X3,X4,X5),sumaPC(J,1,X1,T1,Z1,V1,W1).
+cambSec1(J,2):-retract(pared(J,f(Y1,X,Y2,Y3,Y4),A,B,C,D)),assert(pared(J,f(Y1,2,Y2,Y3,Y4),A,B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,2,X1,X2,X3,X4,X5),sumaPC(J,2,X2,T2,Z2,V2,W2).
+cambSec1(J,3):-retract(pared(J,f(Y1,Y2,X,Y3,Y4),A,B,C,D)),assert(pared(J,f(Y1,Y2,3,Y3,Y4),A,B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,3,X1,X2,X3,X4,X5),sumaPC(J,3,X3,T3,Z3,V3,W3).
+cambSec1(J,4):-retract(pared(J,f(Y1,Y2,Y3,X,Y4),A,B,C,D)),assert(pared(J,f(Y1,Y2,Y3,4,Y4),A,B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,4,X1,X2,X3,X4,X5),sumaPC(J,4,X4,T4,Z4,V4,W4).
+cambSec1(J,5):-retract(pared(J,f(Y1,Y2,Y3,Y4,X),A,B,C,D)),assert(pared(J,f(Y1,Y2,Y3,Y4,5),A,B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,5,X1,X2,X3,X4,X5),sumaPC(J,5,X5,T5,Z5,V5,W5).
 
-cambSec2(J,1):-retract(pared(J,A,f(Y1,X,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(Y1,1,Y2,Y3,Y4),B,C,D)).
-cambSec2(J,2):-retract(pared(J,A,f(Y1,Y2,X,Y3,Y4),B,C,D)),assert(pared(J,A,f(Y1,Y2,2,Y3,Y4),B,C,D)).
-cambSec2(J,3):-retract(pared(J,A,f(Y1,Y2,Y3,X,Y4),B,C,D)),assert(pared(J,A,f(Y1,Y2,Y3,3,Y4),B,C,D)).
-cambSec2(J,4):-retract(pared(J,A,f(Y1,Y2,Y3,Y4,X),B,C,D)),assert(pared(J,A,f(Y1,Y2,Y3,Y4,4),B,C,D)).
-cambSec2(J,5):-retract(pared(J,A,f(X,Y1,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(5,Y1,Y2,Y3,Y4),B,C,D)).
+cambSec2(J,1):-retract(pared(J,A,f(Y1,X,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(Y1,1,Y2,Y3,Y4),B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,1,T1,T2,T3,T4,T5),sumaPC(J,1,X2,T2,Z2,V2,W2).
+cambSec2(J,2):-retract(pared(J,A,f(Y1,Y2,X,Y3,Y4),B,C,D)),assert(pared(J,A,f(Y1,Y2,2,Y3,Y4),B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,2,T1,T2,T3,T4,T5),sumaPC(J,2,X3,T3,Z3,V3,W3).
+cambSec2(J,3):-retract(pared(J,A,f(Y1,Y2,Y3,X,Y4),B,C,D)),assert(pared(J,A,f(Y1,Y2,Y3,3,Y4),B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,3,T1,T2,T3,T4,T5),sumaPC(J,3,X4,T4,Z4,V4,W4).
+cambSec2(J,4):-retract(pared(J,A,f(Y1,Y2,Y3,Y4,X),B,C,D)),assert(pared(J,A,f(Y1,Y2,Y3,Y4,4),B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,4,T1,T2,T3,T4,T5),sumaPC(J,4,X5,T5,Z5,V5,W5).
+cambSec2(J,5):-retract(pared(J,A,f(X,Y1,Y2,Y3,Y4),B,C,D)),assert(pared(J,A,f(5,Y1,Y2,Y3,Y4),B,C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,5,T1,T2,T3,T4,T5),sumaPC(J,5,X1,T1,Z1,V1,W1).
 
-cambSec3(J,1):-retract(pared(J,A,B,f(Y1,Y2,X,Y3,Y4),C,D)),assert(pared(J,A,B,f(Y1,Y2,1,Y3,Y4),C,D)).
-cambSec3(J,2):-retract(pared(J,A,B,f(Y1,Y2,Y3,X,Y4),C,D)),assert(pared(J,A,B,f(Y1,Y2,Y3,2,Y4),C,D)).
-cambSec3(J,3):-retract(pared(J,A,B,f(Y1,Y2,Y3,Y4,X),C,D)),assert(pared(J,A,B,f(Y1,Y2,Y3,Y4,3),C,D)).
-cambSec3(J,4):-retract(pared(J,A,B,f(X,Y1,Y2,Y3,Y4),C,D)),assert(pared(J,A,B,f(4,Y1,Y2,Y3,Y4),C,D)).
-cambSec3(J,5):-retract(pared(J,A,B,f(Y1,X,Y2,Y3,Y4),C,D)),assert(pared(J,A,B,f(Y1,5,Y2,Y3,Y4),C,D)).
+cambSec3(J,1):-retract(pared(J,A,B,f(Y1,Y2,X,Y3,Y4),C,D)),assert(pared(J,A,B,f(Y1,Y2,1,Y3,Y4),C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,1,Z1,Z2,Z3,Z4,Z5),sumaPC(J,1,X3,T3,Z3,V3,W3).
+cambSec3(J,2):-retract(pared(J,A,B,f(Y1,Y2,Y3,X,Y4),C,D)),assert(pared(J,A,B,f(Y1,Y2,Y3,2,Y4),C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,2,Z1,Z2,Z3,Z4,Z5),sumaPC(J,2,X4,T4,Z4,V4,W4).
+cambSec3(J,3):-retract(pared(J,A,B,f(Y1,Y2,Y3,Y4,X),C,D)),assert(pared(J,A,B,f(Y1,Y2,Y3,Y4,3),C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,3,Z1,Z2,Z3,Z4,Z5),sumaPC(J,3,X5,T5,Z5,V5,W5).
+cambSec3(J,4):-retract(pared(J,A,B,f(X,Y1,Y2,Y3,Y4),C,D)),assert(pared(J,A,B,f(4,Y1,Y2,Y3,Y4),C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,4,Z1,Z2,Z3,Z4,Z5),sumaPC(J,4,X1,T1,Z1,V1,W1).
+cambSec3(J,5):-retract(pared(J,A,B,f(Y1,X,Y2,Y3,Y4),C,D)),assert(pared(J,A,B,f(Y1,5,Y2,Y3,Y4),C,D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,5,Z1,Z2,Z3,Z4,Z5),sumaPC(J,5,X2,T2,Z2,V2,W2).
 
-cambSec4(J,1):-retract(pared(J,A,B,C,f(Y1,Y2,Y3,X,Y4),D)),assert(pared(J,A,B,C,f(Y1,Y2,Y3,1,Y4),D)).
-cambSec4(J,2):-retract(pared(J,A,B,C,f(Y1,Y2,Y3,Y4,X),D)),assert(pared(J,A,B,C,f(Y1,Y2,Y3,Y4,2),D)).
-cambSec4(J,3):-retract(pared(J,A,B,C,f(X,Y1,Y2,Y3,Y4),D)),assert(pared(J,A,B,C,f(3,Y1,Y2,Y3,Y4),D)).
-cambSec4(J,4):-retract(pared(J,A,B,C,f(Y1,X,Y2,Y3,Y4),D)),assert(pared(J,A,B,C,f(Y1,4,Y2,Y3,Y4),D)).
-cambSec4(J,5):-retract(pared(J,A,B,C,f(Y1,Y2,X,Y3,Y4),D)),assert(pared(J,A,B,C,f(Y1,Y2,5,Y3,Y4),D)).
+cambSec4(J,1):-retract(pared(J,A,B,C,f(Y1,Y2,Y3,X,Y4),D)),assert(pared(J,A,B,C,f(Y1,Y2,Y3,1,Y4),D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,1,V1,V2,V3,V4,V5),sumaPC(J,1,X4,T4,Z4,V4,W4).
+cambSec4(J,2):-retract(pared(J,A,B,C,f(Y1,Y2,Y3,Y4,X),D)),assert(pared(J,A,B,C,f(Y1,Y2,Y3,Y4,2),D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,2,V1,V2,V3,V4,V5),sumaPC(J,2,X5,T5,Z5,V5,W5).
+cambSec4(J,3):-retract(pared(J,A,B,C,f(X,Y1,Y2,Y3,Y4),D)),assert(pared(J,A,B,C,f(3,Y1,Y2,Y3,Y4),D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,3,V1,V2,V3,V4,V5),sumaPC(J,3,X1,T1,Z1,V1,W1).
+cambSec4(J,4):-retract(pared(J,A,B,C,f(Y1,X,Y2,Y3,Y4),D)),assert(pared(J,A,B,C,f(Y1,4,Y2,Y3,Y4),D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,4,V1,V2,V3,V4,V5),sumaPC(J,4,X2,T2,Z2,V2,W2).
+cambSec4(J,5):-retract(pared(J,A,B,C,f(Y1,Y2,X,Y3,Y4),D)),assert(pared(J,A,B,C,f(Y1,Y2,5,Y3,Y4),D)),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,5,V1,V2,V3,V4,V5),sumaPC(J,5,X3,T3,Z3,V3,W3).
 
-cambSec5(J,1):-retract(pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,X))),assert(pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,1))).
-cambSec5(J,2):-retract(pared(J,A,B,C,D,f(X,Y1,Y2,Y3,Y4))),assert(pared(J,A,B,C,D,f(2,Y1,Y2,Y3,Y4))).
-cambSec5(J,3):-retract(pared(J,A,B,C,D,f(Y1,X,Y2,Y3,Y4))),assert(pared(J,A,B,C,D,f(Y1,3,Y2,Y3,Y4))).
-cambSec5(J,4):-retract(pared(J,A,B,C,D,f(Y1,Y2,X,Y3,Y4))),assert(pared(J,A,B,C,D,f(Y1,Y2,4,Y3,Y4))).
-cambSec5(J,5):-retract(pared(J,A,B,C,D,f(Y1,Y2,Y3,X,Y4))),assert(pared(J,A,B,C,D,f(Y1,Y2,Y3,5,Y4))).
+cambSec5(J,1):-retract(pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,X))),assert(pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,1))),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,1,W1,W2,W3,W4,W5),sumaPC(J,1,X5,T5,Z5,V5,W5).
+cambSec5(J,2):-retract(pared(J,A,B,C,D,f(X,Y1,Y2,Y3,Y4))),assert(pared(J,A,B,C,D,f(2,Y1,Y2,Y3,Y4))),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,2,W1,W2,W3,W4,W5),sumaPC(J,2,X1,T1,Z1,V1,W1).
+cambSec5(J,3):-retract(pared(J,A,B,C,D,f(Y1,X,Y2,Y3,Y4))),assert(pared(J,A,B,C,D,f(Y1,3,Y2,Y3,Y4))),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,3,W1,W2,W3,W4,W5),sumaPC(J,3,X2,T2,Z2,V2,W2).
+cambSec5(J,4):-retract(pared(J,A,B,C,D,f(Y1,Y2,X,Y3,Y4))),assert(pared(J,A,B,C,D,f(Y1,Y2,4,Y3,Y4))),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,4,W1,W2,W3,W4,W5),sumaPC(J,4,X3,T3,Z3,V3,W3).
+cambSec5(J,5):-retract(pared(J,A,B,C,D,f(Y1,Y2,Y3,X,Y4))),assert(pared(J,A,B,C,D,f(Y1,Y2,Y3,5,Y4))),
+                pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                sumaPC(J,5,W1,W2,W3,W4,W5),sumaPC(J,5,X4,T4,Z4,V4,W4).
 
 
+sumaPuntos(J,C):- jugador(J,P,S), N is P+C, retract(jugador(J,P,S)), assert(jugador(J,N,S)).
+
+% I es el color que se puso(o sea el numero), J es el nuemero del jugador, y A,B,C,D,E son los elementos de la columna(fila) en orden del 1 al 5
+sumaPC(J,I,A,B,C,D,E):- A=I, not(B=0),sumaPuntos(J,2),not(C=0),sumaPuntos(J,1),not(D=0),sumaPuntos(J,1),not(E=0),sumaPuntos(J,1),!.
+sumaPC(J,I,A,B,C,D,E):- B=I, not(A=0),sumaPuntos(J,2),not(C=0),sumaPuntos(J,1),not(D=0),sumaPuntos(J,1),not(E=0),sumaPuntos(J,1),!.
+sumaPC(J,I,A,B,C,D,E):- B=I, not(C=0),sumaPuntos(J,2),not(D=0),sumaPuntos(J,1),not(E=0),sumaPuntos(J,1),not(A=0),sumaPuntos(J,-1),!.
+sumaPC(J,I,A,B,C,D,E):- C=I, not(B=0),sumaPuntos(J,2),not(A=0),sumaPuntos(J,1),not(D=0),sumaPuntos(J,1),not(E=0),sumaPuntos(J,1),!.
+sumaPC(J,I,A,B,C,D,E):- C=I, not(D=0),sumaPuntos(J,2),not(E=0),sumaPuntos(J,1),not(B=0),sumaPuntos(J,-1),!.
+sumaPC(J,I,A,B,C,D,E):- D=I, not(C=0),sumaPuntos(J,2),not(B=0),sumaPuntos(J,1),not(A=0),sumaPuntos(J,1),not(E=0),sumaPuntos(J,1),!.
+sumaPC(J,I,A,B,C,D,E):- D=I, not(E=0),sumaPuntos(J,2),not(C=0),sumaPuntos(J,-1),!.
+sumaPC(J,I,A,B,C,D,E):- E=I, not(D=0),sumaPuntos(J,2),not(C=0),sumaPuntos(J,1),not(B=0),sumaPuntos(J,1),not(A=0),sumaPuntos(J,1),!.
 
 
+sumaSuelo(J):-jugador(J,P,S), sumS(S,A), retract(jugador(J,P,S)),assert(jugador(J,P,0)), sumaPuntos(J,A).
 
-
-
+sumS(1,T):- T is -1.
+sumS(2,T):- T is -2.
+sumS(3,T):- T is -4.
+sumS(4,T):- T is -6.
+sumS(5,T):- T is -8.
+sumS(6,T):- T is -11.
+sumS(7,T):- T is -14.
+sumS(S,T):- T is 0.
 
 
 
