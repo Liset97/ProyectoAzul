@@ -62,7 +62,7 @@ cM(blanco,0).
 cM(verde,1).
 
 % Espacio de definicion Bolsa:
-% bolsa(Negro,Azul,Amarillo,Rojo,Blanco,Total) inicialmente se cuenta con esta cantidad en la bolsa.
+% bolsa(Color,Cant) inicialmente se cuenta con esta cantidad en la bolsa.
 :- dynamic bolsa/2.
 bolsa(negro,20).
 bolsa(azul,20).
@@ -146,11 +146,11 @@ sec4(J,3):- pared(J,A,B,C,f(X,Y1,Y2,Y3,Y4),D), X=0.
 sec4(J,4):- pared(J,A,B,C,f(Y1,X,Y2,Y3,Y4),D), X=0.
 sec4(J,5):- pared(J,A,B,C,f(Y1,Y2,X,Y3,Y4),D), X=0.
 
-sec5(J,1):- pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,X)), X=0.
-sec5(J,2):- pared(J,A,B,C,D,f(X,Y1,Y2,Y3,Y4)), X=0.
-sec5(J,3):- pared(J,A,B,C,D,f(Y1,X,Y2,Y3,Y4)), X=0.
-sec5(J,4):- pared(J,A,B,C,D,f(Y1,Y2,X,Y3,Y4)), X=0.
-sec5(J,5):- pared(J,A,B,C,D,f(Y1,Y2,Y3,X,Y4)), X=0.
+sec5(J,1):- pared(J,A,B,C,D,f(Y1,Y2,Y3,Y4,X)), X=0,write("JAS1").
+sec5(J,2):- pared(J,A,B,C,D,f(X,Y1,Y2,Y3,Y4)), X=0,write("JAS2").
+sec5(J,3):- pared(J,A,B,C,D,f(Y1,X,Y2,Y3,Y4)), X=0,write("JAS3").
+sec5(J,4):- pared(J,A,B,C,D,f(Y1,Y2,X,Y3,Y4)), X=0,write("JAS4").
+sec5(J,5):- pared(J,A,B,C,D,f(Y1,Y2,Y3,X,Y4)), X=0,write("JAS5").
 
 
 cambSec1(J,1):-retract(pared(J,f(_,Y1,Y2,Y3,Y4),A,B,C,D)),assert(pared(J,f(1,Y1,Y2,Y3,Y4),A,B,C,D)),
