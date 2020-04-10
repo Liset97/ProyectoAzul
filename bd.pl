@@ -59,6 +59,7 @@ cM(azul,0).
 cM(amarillo,0).
 cM(rojo,0).
 cM(blanco,0).
+cM(verde,1).
 
 % Espacio de definicion Bolsa:
 % bolsa(Negro,Azul,Amarillo,Rojo,Blanco,Total) inicialmente se cuenta con esta cantidad en la bolsa.

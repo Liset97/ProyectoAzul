@@ -9,7 +9,7 @@ cogeColor(R):- random(1,6,U), colores(U,R).
 cogeBolsa(R):- cogeColor(R), bolsa(R,X1), X1 > 0, X is X1-1, retract(bolsa(R,X1)), assert(bolsa(R,X)).
 
 llenaFact(X,R1,R2,R3,R4):- cogeBolsa(R1),cogeBolsa(R2),cogeBolsa(R3),cogeBolsa(R4), retract(factoria(X,none,none,none,none)), assert(factoria(X,R1,R2,R3,R4)).
-llenaTodasFact(N):- N > 0, llenaFact(N,T1,T2,T3,T4), N1 is N-1, llenaTodasFact(N1). 
+llenaTodasFact(N):- N > 0, llenaFact(N,T1,T2,T3,T4), N1 is N-1, llenaTodasFact(N1),!. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                     %
@@ -64,7 +64,8 @@ ponerP(J,R,C):-jugador(J,P,S),S1 is S+C,retract(jugador(J,P,S)),assert(jugador(J
 ambas():-factoriasVacias(9),cMVacias().
 
 juega(J):- not(factoriasVacias(9)),cogerFF(R,C,F),pasarFCM(R,F),colores(H,R),ponerP(J,H,C),!.
-juega(J):- not(cMVacias()),cogerFC(R,C),colores(H,R),ponerP(J,H,C).
+juega(J):- not(cMVacias()),cogerFC(R,C),colores(H,R),ponerP(J,H,C),cM(verde,X), X=0,retract(cM(verde,X)),assert(cM(verde,J)).
+juega(J):-!.
 
 %%
 %%  Terminar cosas de la fase uno como manejar el jugador inicial
@@ -77,8 +78,10 @@ juega(J):- not(cMVacias()),cogerFC(R,C),colores(H,R),ponerP(J,H,C).
 %                                           %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Esto se utiliza para meter en la tapa
 meterTapa(R,C):-tapa(R,X), A is X+C, retract(tapa(R,X)),assert(tapa(R,A)).
 
+% Este metodo se utiliza para meter de la tapa pa la bolsa.
 meterTB([]):-!.
 meterTB([X|Y]):- tapa(X,C),retract(bolsa(X,B)),assert(bolsa(X,U)),retract(tapa(X,T)),assert(tapa(X,0)),meterTB(Y).
 
@@ -88,6 +91,36 @@ moverPP(J,2):-patron(J,A,linea(X,Y),B,C,D), X=2,colores(U,Y),sec2(J,U),cambSec2(
 moverPP(J,3):-patron(J,A,B,linea(X,Y),C,D), X=3,colores(U,Y),sec3(J,U),cambSec3(J,U),reiniciarP3(J),meterTapa(Y,2).
 moverPP(J,4):-patron(J,A,B,C,linea(X,Y),D), X=4,colores(U,Y),sec4(J,U),cambSec4(J,U),reiniciarP4(J),meterTapa(Y,3).
 moverPP(J,5):-patron(J,A,B,C,D,linea(X,Y)), X=5,colores(U,Y),sec5(J,U),cambSec5(J,U),reiniciarP5(J),meterTapa(Y,4).
+
+% para dado el jugador actual, cual es el siguiente segun las manecillas del reloj.
+proximo(1,D):- D is 2.
+proximo(2,D):- D is 3.
+proximo(3,D):- D is 4.
+proximo(4,D):- D is 1.
+
+% Al terminar la fase anterior mover todas las fichas a la pared.
+moverP(J,0):-!.
+moverP(J,N):-moverPP(J,N), N1 is N-1, moverP(J,N1).
+
+% Recorre por los jugadores para actualizar la pared
+jugadorAct(0):-!.
+jugadorAct(J):-moverP(J,5), K is J-1, jugadorAct(K).
+
+% Aqui estaria la forma de llamar dado un jugador inicial a una ronda.
+juegoC(J):-not(ambas()),juega(J),proximo(J,P),juegoC(P),!.
+
+% Asi se llamaria a la primera ronda 
+primeraRonda():-random(1,5,J),juegoC(J).
+
+% Con esto se verifica que una fila completa tenga fichas
+checkFila(A,B,C,D,E):-not(A=0),not(B=0),not(C=0),not(D=0),not(E=0).
+
+% Esta es la condicion de parada del juego, es decir que un jugador llene al menos una fila
+jugadorTerm(J):- pared(J,f(X1,X2,X3,X4,X5),f(T1,T2,T3,T4,T5),f(Z1,Z2,Z3,Z4,Z5),f(V1,V2,V3,V4,V5),f(W1,W2,W3,W4,W5)),
+                 checkFila(X1,X2,X3,X4,X5);checkFila(T1,T2,T3,T4,T5);checkFila(Z1,Z2,Z3,Z4,Z5);checkFila(V1,V2,V3,V4,V5);checkFila(W1,W2,W3,W4,W5)
+
+% A partir de la segunda ronda, la comienza el jugador que esta marcado como jugador iniciar por la ficha verde en el centro de mesa
+demasRonda():- bolsa(cM(verde,J)), retract(cM(verde,_)), assert(cM(verde,0)), juegoC(J).
 
 
 
